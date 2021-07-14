@@ -158,23 +158,25 @@ scheduling algorithm을 구현하면서, scheduler가 host와 cpu 사이에서 �
 > ~~~  
 
 ### schedule_ans에 같은 명령을 테스트하고 결과를 비교한다.
-> ![sim_result](https://user-images.githubusercontent.com/44739822/125674135-e1a1011d-f06a-40bf-b54f-cc7beb824a29.png)
-
+![sim_result](https://user-images.githubusercontent.com/44739822/125686898-e8655f33-31db-4576-8477-168d784c8895.png)
 
 ------------
 
 ## 구현 결과
 ### - ex 1.
 > ~~~Bash
-> ./schedule traces/test FIFO
+> ./schedule traces/test SJF
 > ~~~
-> ![fifo test](https://user-images.githubusercontent.com/44739822/125673308-100557cb-c377-48f2-9768-9e0fad523ae3.PNG)
+> ![fifo test](https://user-images.githubusercontent.com/44739822/125686728-c25a9cc0-6a72-4c95-8ada-1da9c780319d.PNG)
 
 ### - ex 2.
 > ~~~Bash
-> ./schedule traces/test MLFQ 1 2 3 4
+> ./schedule_ans traces/test_100 MLFQ 2 4 6 9
 > ~~~
-
+>
+> ![sim_result2](https://user-images.githubusercontent.com/44739822/125686253-4025bcf2-f4e4-4edf-9dfc-a00ffb1cb4ba.PNG)
+> 
+> ![sim_result2-1](https://user-images.githubusercontent.com/44739822/125686247-07ba2643-d9f7-49e2-a545-ff98d7e4816a.PNG)
 
 ------------
 
