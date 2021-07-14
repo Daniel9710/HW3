@@ -3,6 +3,8 @@
 scheduling algorithm을 구현하면서, scheduler가 host와 cpu 사이에서 어떤 작업을 수행하는지 이해하고 각 scheduling algorithm 간의 특징과 차이점에 대해 생각해보자.
 
 
+------------
+
 ## 파일 구성
 > __src__ : 기본 구현에 필요한 파일들을 모아둔 디렉터리 (참고용)
 > 
@@ -29,6 +31,84 @@ scheduling algorithm을 구현하면서, scheduler가 host와 cpu 사이에서 �
 > __scheduler_ans__ : scheduler 모듈 답안 실행파일 __(이 파일의 동작과 똑같이 결과가 나오면 됨)__
 
 
+------------
+
+## 주요 함수 (src에서의 함수는 이거만 사용해서 구현하도록)
+### Create process
+> ~~~C
+> /* create_if_next_process_available
+> // : host로부터 해당 time에 create된 process가 있는지 알 수 있음. 매 cycle이 시작될 때마다 호출됨
+> // parameter: x
+> // return: 해당 time에 create된 process가 있을 경우 생성된 process의 pointer
+> //         없을 경우 NULL
+> */
+> Proc* create_if_next_process_available();
+> ~~~
+
+### Check CPU busy
+> ~~~C
+> /* is_cpu_busy
+> // : cpu에 현재 schedule된 process가 있는지 알 수 있는 함수
+> // parameter: x
+> // return: 있을 경우 참(1), 없을 경우 거짓(0)
+> */
+> bool is_cpu_busy();
+> ~~~
+
+### Schedule to CPU
+> ~~~C
+> /* schedule_cpu
+> // : cpu에 파라미터로 전달하는 process를 schedule요청할 때 사용하는 함수
+> // parameter: schedule하고자 하는 process의 포인터
+> // return: x
+> */
+> void schedule_cpu(Proc* process);
+> ~~~
+
+### Run CPU
+> ~~~C
+> /* run_cpu
+> // : cpu가 한 cycle을 소화하도록 하는 함수 (매 cycle마다 실행되어야 함)
+> // parameter: x
+> // return: 현재 cycle에 만약 schedule되어있는 process가 있고 그 process가 사용해야할 cycle을 모두 사용한 경우 참(1)
+> //         아니면 거짓(0)
+> */
+> bool run_cpu();
+> ~~~
+
+### Unschedule from CPU
+> ~~~C
+> /* unschedule_cpu
+> // : cpu에 현재 schedule되어 있는 process를 unschedule하고 싶을 때 사용하는 함수
+> // parameter: x
+> // return: unschedule한 process의 pointer      
+> */
+> Proc* unschedule_cpu();
+> ~~~
+
+### Terminate process  
+> ~~~C
+> /* terminate_process
+> // : process를 terminate시키고 싶을 때 호출하는 함수.
+> // parameter: terminate시키고 싶은 process의 pointer
+> // return: x
+> */
+> void terminate_process(Proc* candidate_process);
+> ~~~
+
+### Get current time
+> ~~~C
+> /* get_current_time
+> // : 현재 시간에 대해 얻을 수 있는 함수
+> // parameter: x
+> // return: 현재 시간
+> */
+> unsigned int get_current_time();
+> ~~~
+ 
+ 
+------------
+ 
 ## 구현 방법
 ### scheduler.c에 각 scheduling algorithm (FIFO, SJF, RoudRobin, MFLQ, Guarantee)를 구현한다.
 > - 각 scheduling algorithm을 위해 필요한 데이터(ex. 큐)들을 저장하고 사용할 구조체 작성
@@ -81,6 +161,8 @@ scheduling algorithm을 구현하면서, scheduler가 host와 cpu 사이에서 �
 > ![sim_result](https://user-images.githubusercontent.com/44739822/125674135-e1a1011d-f06a-40bf-b54f-cc7beb824a29.png)
 
 
+------------
+
 ## 구현 결과
 ### - ex 1.
 > ~~~Bash
@@ -93,7 +175,11 @@ scheduling algorithm을 구현하면서, scheduler가 host와 cpu 사이에서 �
 > ./schedule traces/test MLFQ 1 2 3 4
 > ~~~
 
+
+------------
+
 ## 구현 시 주의 사항
 - 전역변수 사용 x
 - src 내부의 코드는 고치지 x
 - scheduler.c 내부 코드도 이미 작성되어 있는 부분은 고치지 x
+- src의 모든 헤더파일은 꼭 다 보고 구현하기
