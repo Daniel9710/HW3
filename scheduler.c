@@ -242,11 +242,11 @@ void print_result() {
     char policies[5][10] = {"FIFO", "SJF", "RR", "MLFQ", "GUARANTEE"};
     printf("\n=============== Simulation Result ===============\n");
     printf("scheduling policy: %s\n", policies[g_cpu->policy]);
-    printf("request process: %d\t", g_host->request_cnt);
-    printf("service process: %d\n", g_host->service_cnt);
+    printf("request process: %lld\t", g_host->request_cnt);
+    printf("service process: %lld\n", g_host->service_cnt);
     printf("schedule count: %d\n", g_cpu->schedule_cnt);
     printf("total process time(cycle): %d\n", get_current_time());
-    printf("total cpu time(cycle): %d\t", g_cpu->process_time);
-    printf("total turnaround time(cycle): %d\n", g_host->turnaround_time);
+    printf("total cpu time(cycle): %lld\t", g_cpu->process_time);
+    printf("total turnaround time(cycle): %lld\n", g_host->turnaround_time);
     printf("=================================================\n");
 }

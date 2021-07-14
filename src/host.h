@@ -11,18 +11,18 @@
 typedef struct Host{
     FILE* trace_file;
     Proc* next_process;
-    unsigned int finish;
-    unsigned int total_request_cnt;
-    unsigned int request_cnt;
-    unsigned int service_cnt;
-    unsigned int turnaround_time;
+    bool finish;
+    unsigned long long total_request_cnt;
+    unsigned long long request_cnt;
+    unsigned long long service_cnt;
+    unsigned long long turnaround_time;
     unsigned int progress_cnt;
 } Host;
 
 int init_host(Parser* parameters);
 void terminate_host();
 
-unsigned int is_simulation_on_going();
+bool is_simulation_on_going();
 void print_progress_bar(unsigned int ratio);
 
 /* create_if_next_process_available

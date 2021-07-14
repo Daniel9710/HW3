@@ -10,7 +10,7 @@
 // parameter: x
 // return: 현재 시간
 */
-unsigned int get_current_time();
+unsigned long long get_current_time();
 
 void increase_current_time();
 

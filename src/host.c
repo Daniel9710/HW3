@@ -14,7 +14,7 @@ int init_host(Parser* parameters) {
     }
     g_host->next_process = NULL;
     g_host->finish = FALSE;
-    fscanf(g_host->trace_file, " %d", &g_host->total_request_cnt);
+    fscanf(g_host->trace_file, " %lld", &g_host->total_request_cnt);
     g_host->request_cnt = 0;
     g_host->service_cnt = 0;
     g_host->turnaround_time = 0;
@@ -29,7 +29,7 @@ void terminate_host() {
     PRINT_MSG("TERMINATE_HOST: OK");
 }
 
-unsigned int is_simulation_on_going() {
+bool is_simulation_on_going() {
     int progress = (int)(g_host->service_cnt / (double)g_host->total_request_cnt * 100);
     if (progress >= g_host->progress_cnt) {
         print_progress_bar(progress);

@@ -12,7 +12,7 @@
 typedef struct Cpu{
     SCHEDULING_POLICY policy;
     unsigned int *quantums; 
-    unsigned int process_time;
+    unsigned long long process_time;
     Proc* running_process;
     unsigned int schedule_cnt;
 } Cpu;
