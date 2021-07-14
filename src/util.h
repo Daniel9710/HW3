@@ -14,6 +14,8 @@ unsigned long long get_current_time();
 
 void increase_current_time();
 
+void print_progress_bar(unsigned int ratio);
+
 FILE* open_file(char *file_path);
 void close_file(FILE* fp);
 

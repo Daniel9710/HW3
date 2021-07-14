@@ -39,17 +39,6 @@ bool is_simulation_on_going() {
     return (g_host->service_cnt < g_host->total_request_cnt);
 }
 
-void print_progress_bar(unsigned int ratio) {
-    int cnt = 0;
-    printf("[");
-    for (; cnt < ratio; cnt+=5)
-        printf("=");
-    printf(">");
-    for (cnt+=5; cnt < 100; cnt+=5)
-        printf(" ");
-    printf("] %d %%\n\n", ratio);
-}
-
 Proc* create_if_next_process_available(){
     Proc* next_process = NULL;
     if (g_host->finish == FALSE) {

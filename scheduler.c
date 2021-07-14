@@ -245,7 +245,7 @@ void print_result() {
     printf("request process: %lld\t", g_host->request_cnt);
     printf("service process: %lld\n", g_host->service_cnt);
     printf("schedule count: %d\n", g_cpu->schedule_cnt);
-    printf("total process time(cycle): %d\n", get_current_time());
+    printf("total process time(cycle): %lld\n", get_current_time());
     printf("total cpu time(cycle): %lld\t", g_cpu->process_time);
     printf("total turnaround time(cycle): %lld\n", g_host->turnaround_time);
     printf("=================================================\n");

@@ -23,7 +23,6 @@ int init_host(Parser* parameters);
 void terminate_host();
 
 bool is_simulation_on_going();
-void print_progress_bar(unsigned int ratio);
 
 /* create_if_next_process_available
 // : host로부터 해당 time에 create된 process가 있는지 알 수 있음. 매 cycle이 시작될 때마다 호출됨

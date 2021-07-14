@@ -3,7 +3,7 @@ ADDITIONAL_SRC=
 
 .PHONY:schedule
 
-schedule: cpu.o host.o parser.o util.o
+schedule: util.o cpu.o host.o parser.o 
 	gcc -o schedule scheduler.c cpu.o host.o parser.o util.o $(ADDITIONAL_SRC)
 
 cpu.o: 
@@ -19,4 +19,4 @@ util.o:
 	gcc -c -o util.o src/util.c
 
 clean:
-	rm cpu.o host.o parser.o schedule
+	rm util.o cpu.o host.o parser.o schedule
