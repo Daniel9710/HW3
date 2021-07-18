@@ -199,3 +199,8 @@ scheduling algorithm을 구현하면서, scheduler가 host와 cpu 사이에서 �
 - src 내부의 코드는 고치지 x
 - scheduler.c 내부 코드도 이미 작성되어 있는 부분은 고치지 x
 - src의 모든 헤더파일은 꼭 다 보고 구현하기
+
+### MLFQ priority 이동 규칙
+- 매 cycle 가장 마지막에 priority이동이 일어난다.
+- 이동 대상: 해당 priority에서 10cycle 머무르면 한 priority 높은 큐로 옮겨줌. (LOW -> MID -> HIGH -> URGENT, URGENT의 processs는 더이상 이동 x)
+- 옮겨야 할 process가 여러개일 경우, 처리 우선 순위: terminate까지 남은 작업량(cycle) > 큐 안에서 순서 (앞일수록 우선)
