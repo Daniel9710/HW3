@@ -5,6 +5,7 @@
 #define PRINT_MSG(s) printf("%s\n", s)
 
 #define INC_CNT(var) var++
+#define DEC_CNT(var) var--
 
 #define TRUE 1
 #define FALSE 0
@@ -17,6 +18,8 @@ typedef enum SCHEDULING_POLICY {
     POLICY_GUARANTEE,
     POLICY_ERR
 } SCHEDULING_POLICY;
+
+#define IS_PREEMTIVE(policy) policy >= POLICY_RR
 
 typedef enum PROCESS_PRIORITY {
     URGENT,

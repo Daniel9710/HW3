@@ -30,34 +30,52 @@ void schedule_cpu(Proc* process) {
         PRINT_ERROR("CPU already busy");
         exit(-1);
     }
-    else if ((g_cpu->policy == POLICY_MLFQ && get_current_time() % g_cpu->quantums[process->priority])
-            || (g_cpu->policy != POLICY_MLFQ && get_current_time() % g_cpu->quantums[0])) { 
-        PRINT_ERROR("This is not a schedule term");
-        exit(-1);
-    }
     else if (process == NULL) {
         PRINT_ERROR("There is no process to schedule");
         exit(-1);
     }
     INC_CNT(g_cpu->schedule_cnt);
     g_cpu->running_process = process;
+
+    switch (g_cpu->policy) {
+        case POLICY_MLFQ:
+            g_cpu->quantum_cnt = g_cpu->quantums[process->priority];
+        break;
+        case POLICY_RR:
+        case POLICY_GUARANTEE:
+            g_cpu->quantum_cnt = g_cpu->quantums[0];
+        break;
+        default:
+            g_cpu->quantum_cnt = g_cpu->running_process->required_time;
+        break;
+    }
 }
 
 bool run_cpu() {
     Proc* cur_process = g_cpu->running_process;
     if (cur_process) {
+        if (IS_PREEMTIVE(g_cpu->policy)) {
+            if (g_cpu->quantum_cnt == 0) {
+                PRINT_ERROR("The process use all quantum to process");
+                exit(-1);
+            }
+            DEC_CNT(g_cpu->quantum_cnt);
+        }
         INC_CNT(cur_process->process_time);
         INC_CNT(g_cpu->process_time);
     }
-    return (cur_process && cur_process->process_time == cur_process->required_time);
+    return (cur_process && (cur_process->process_time == cur_process->required_time || g_cpu->quantum_cnt == 0));
 }
 
 Proc* unschedule_cpu() {
-    if (g_cpu->running_process == NULL) {
+    Proc* res = g_cpu->running_process;
+    if (res == NULL) {
         PRINT_ERROR("CPU has no process");
         exit(-1);
     }
-    Proc* res = g_cpu->running_process;
+    if (IS_PREEMTIVE(g_cpu->policy) && res->process_time != res->required_time && g_cpu->quantum_cnt > 0) {
+        PRINT_ERROR("Warning: The process didn't fully use the quantum.");
+    }
     g_cpu->running_process = NULL;
     return res;
 }

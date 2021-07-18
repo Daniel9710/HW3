@@ -15,6 +15,7 @@ typedef struct Cpu{
     unsigned long long process_time;
     Proc* running_process;
     unsigned int schedule_cnt;
+    unsigned int quantum_cnt;
 } Cpu;
 
 int init_cpu(Parser* parameters);
@@ -37,7 +38,7 @@ void schedule_cpu(Proc* process);
 /* run_cpu
 // : cpu가 한 cycle을 소화하도록 하는 함수 (매 cycle마다 실행되어야 함)
 // parameter: x
-// return: 현재 cycle에 만약 schedule되어있는 process가 있고 그 process가 사용해야할 cycle을 모두 사용한 경우 참(1)
+// return: 현재 cycle에 만약 schedule되어있는 process가 있고 그 process가 사용해야할 또는 사용가능한 cycle을 모두 사용한 경우 참(1)
 //         아니면 거짓(0)
 */
 bool run_cpu();
